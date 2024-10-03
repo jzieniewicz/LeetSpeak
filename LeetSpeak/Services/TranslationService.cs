@@ -1,4 +1,5 @@
-﻿
+﻿using System.Text.Json;
+
 namespace LeetSpeak.Services
 {
     public class TranslationService : ITranslationService
@@ -12,13 +13,22 @@ namespace LeetSpeak.Services
         public async Task<string> Translate(string text)
         {
             var responseData = "";
-            var apiUrl = "https://api.funtranslations.com/translate/leetspeak.json?text=Where%20this%20is%20lots%20of%20love%20there%20is%20lots%20of%20fighting.";
+            var encodedText = Uri.EscapeDataString(text);
+            var apiUrl = $"https://api.funtranslations.com/translate/leetspeak.json?text={encodedText}";
             try
             {
                 var response = await _httpClient.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
                     responseData = await response.Content.ReadAsStringAsync();
+                    using (JsonDocument doc = JsonDocument.Parse(responseData))
+                    {
+                        JsonElement root = doc.RootElement;
+
+                        var translatedText = root.GetProperty("contents").GetProperty("translated").GetString();
+
+                        return translatedText ?? "Translation not found";
+                    }
                 }
                 else
                 {

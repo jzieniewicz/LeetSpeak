@@ -26,8 +26,7 @@ namespace LeetSpeak.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(TranslationViewModel model)
         {
-            var response = await _translationService.Translate(model.InputText);
-            model.TranslatedText = response.ToString();
+            model.TranslatedText = await _translationService.Translate(model.InputText);
             return View(model);
         }
     }
