@@ -9,5 +9,7 @@ namespace LeetSpeak.Data
             : base(options)
         {
         }
+
+        public DbSet<Translation> Translations { get; set; }
     }
 }

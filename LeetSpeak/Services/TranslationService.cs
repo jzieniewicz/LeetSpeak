@@ -1,19 +1,26 @@
-﻿using System.Text.Json;
+﻿using AutoMapper;
+using LeetSpeak.Data;
+using LeetSpeak.Models;
+using System.Text.Json;
 
 namespace LeetSpeak.Services
 {
     public class TranslationService : ITranslationService
     {
-        public readonly HttpClient _httpClient;
-        public TranslationService(HttpClient httpClient)
+        private readonly HttpClient _httpClient;
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        public TranslationService(HttpClient httpClient, ApplicationDbContext context, IMapper mapper)
         {
             _httpClient = httpClient;
+            _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<string> Translate(string text)
+        public async Task<string> Translate(TranslationViewModel model)
         {
             var responseData = "";
-            var encodedText = Uri.EscapeDataString(text);
+            var encodedText = Uri.EscapeDataString(model.InputText);
             var apiUrl = $"https://api.funtranslations.com/translate/leetspeak.json?text={encodedText}";
             try
             {
@@ -26,7 +33,8 @@ namespace LeetSpeak.Services
                         JsonElement root = doc.RootElement;
 
                         var translatedText = root.GetProperty("contents").GetProperty("translated").GetString();
-
+                        model.TranslatedText = translatedText;
+                        await Save(model);
                         return translatedText ?? "Translation not found";
                     }
                 }
@@ -39,8 +47,14 @@ namespace LeetSpeak.Services
             {
                 responseData = $"Exception: {ex.Message}";
             }
-
             return responseData;
+        }
+
+        private async Task Save(TranslationViewModel model)
+        {
+            var translation = _mapper.Map<Translation>(model);
+            _context.Add(translation);
+            await _context.SaveChangesAsync();
         }
     }
 }

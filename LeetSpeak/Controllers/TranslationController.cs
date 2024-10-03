@@ -1,4 +1,5 @@
 ﻿using LeetSpeak.Models;
+using LeetSpeak.Models.Enums;
 using LeetSpeak.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace LeetSpeak.Controllers
         public IActionResult Index()
         {
             var model = new TranslationViewModel();
+            model.TranslationType = (int)TranslationType.LeetSpeak;
             return View(model);
         }
 
@@ -26,7 +28,7 @@ namespace LeetSpeak.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(TranslationViewModel model)
         {
-            model.TranslatedText = await _translationService.Translate(model.InputText);
+            model.TranslatedText = await _translationService.Translate(model);
             return View(model);
         }
     }
