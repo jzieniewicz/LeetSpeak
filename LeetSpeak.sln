@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetSpeak", "LeetSpeak\LeetSpeak.csproj", "{CA269CB3-6B0D-484D-A43D-013458935531}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeetSpeak", "LeetSpeak\LeetSpeak.csproj", "{CA269CB3-6B0D-484D-A43D-013458935531}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeetSpeak.Tests", "LeetSpeak.Tests\LeetSpeak.Tests.csproj", "{DBF5B957-9ABC-4E1D-8C3B-73D9FE1BF490}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{CA269CB3-6B0D-484D-A43D-013458935531}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA269CB3-6B0D-484D-A43D-013458935531}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA269CB3-6B0D-484D-A43D-013458935531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF5B957-9ABC-4E1D-8C3B-73D9FE1BF490}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF5B957-9ABC-4E1D-8C3B-73D9FE1BF490}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF5B957-9ABC-4E1D-8C3B-73D9FE1BF490}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF5B957-9ABC-4E1D-8C3B-73D9FE1BF490}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
