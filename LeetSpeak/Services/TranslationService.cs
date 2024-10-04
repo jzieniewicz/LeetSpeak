@@ -33,8 +33,8 @@ namespace LeetSpeak.Services
                         JsonElement root = doc.RootElement;
 
                         var translatedText = root.GetProperty("contents").GetProperty("translated").GetString();
-                        model.TranslatedText = translatedText;
-                        await Save(model);
+                        //model.TranslatedText = translatedText;
+                        //await Save(model);
                         return translatedText ?? "Translation not found";
                     }
                 }
@@ -50,7 +50,7 @@ namespace LeetSpeak.Services
             return responseData;
         }
 
-        private async Task Save(TranslationViewModel model)
+        public async Task Save(TranslationViewModel model)
         {
             var translation = _mapper.Map<Translation>(model);
             _context.Add(translation);
